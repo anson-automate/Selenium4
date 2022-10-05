@@ -2,19 +2,18 @@ package org.anson.Selenium4;
 
 import java.awt.RenderingHints.Key;
 import java.awt.Window;
+import java.io.File;
+import java.io.IOException;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.WindowType;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class TestRunnerBasic {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		System.out.println("working");
 
@@ -65,10 +64,31 @@ public class TestRunnerBasic {
 		driver.switchTo().window(mainWindow);
 		// 8. webelement 
 		WebElement search = driver.findElement(By.xpath("//*[@class='gLFyf gsfi']"));
+
 		// 9. sending text
 		search.sendKeys("test");
 		// 10. sending keys
-		search.sendKeys(Keys.ENTER);		
+		search.sendKeys(Keys.ENTER);
+
+		//11. maximize window , minimize, full screen
+//
+//		driver.manage().window().maximize();
+//
+//		driver.manage().window().minimize();
+//
+//		driver.manage().window().fullscreen();
+
+		// 12. taking screenshots
+		// page level
+		File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+
+		FileUtils.copyFile(screenshot,new File("./image1.png"));
+		// element level
+		WebElement gImage = driver.findElement(By.xpath("//*[@id='logo']/img"));
+
+		File screenshot1 = gImage.getScreenshotAs(OutputType.FILE);
+
+		FileUtils.copyFile(screenshot1,new File("./Image2.png"));
 
 		driver.close();
 		
