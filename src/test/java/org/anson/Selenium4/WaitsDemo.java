@@ -25,7 +25,9 @@ public class WaitsDemo {
 		
 		dr.navigate().to("https://www.google.com/");
 		
-		dr.findElement(By.name("q")).sendKeys("abc");
+		//dr.findElement(By.name("q")).sendKeys("abc");
+		
+		// explicit wait
 		WebDriverWait wait= new WebDriverWait(dr,Duration.ofSeconds(20));
 		try {
 			WebElement elementToWait = wait.until(ExpectedConditions.elementToBeClickable(By.name("btnK")));
